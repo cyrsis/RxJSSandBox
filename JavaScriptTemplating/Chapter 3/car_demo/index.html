@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Car Search - EJS</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="ejs_production.js"></script>
+		<script src="carsearch.js"></script>
+		<script src="app.js"></script>
+	</head>
+	<style>
+		body { margin-top:20px; }
+	</style>
+	<body>
+
+		<div class="container">
+		
+			<!-- filters -->
+			<div class="col-md-4">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">Filters</h3>
+					</div>
+					<div class="panel-body">
+						
+						<form role="form" id="searchForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="minprice">Min Price</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">$</div>
+                                            <input type="number" class="form-control" id="minprice">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="maxprice">Max Price</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">$</div>
+                                            <input type="number" class="form-control" id="maxprice">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="modelFilter"></div>
+                            <div class="form-group" id="trimFilter"></div>
+                            <div class="form-group" id="colorFilter"></div>
+                            <div class="checkbox" id="featureFilter"></div>
+
+                            <button class="btn btn-primary btn-block" id="searchButton">Search</button>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+			
+			<!-- Results -->
+			<div class="col-md-8">
+				<h3>Car Inventory Search (EJS)</h3>
+				<div id="results"></div>
+			</div>
+
+		</div>
+		
+		<!-- EJS Templates -->
+        <script id="modelTemplate" type="text/x-ejs-template">
+		<label for="model">Model</label>
+		<select class="form-control" id="model">
+		<option></option>
+		<% for(var i=0;i<models.length;i++) { %>
+			<option value="<%= models[i] %>"><%= models[i] %></option>
+		<% } %>
+		</select>
+		</script>
+
+        <script id="trimTemplate" type="text/x-ejs-template">
+		<label for="trim">Trim</label>
+		<select class="form-control" id="trim">
+		<option></option>
+		<% for(var i=0;i<trims.length;i++) { %>
+			<option value="<%= trims[i] %>"><%= trims[i] %></option>
+		<% } %>
+		</select>
+		</script>
+
+		<script id="colorTemplate" type="text/x-ejs-template">
+		<label for="color">Color</label>
+		<select class="form-control" id="color">
+		<option></option>
+		<% for(var i=0;i<colors.length;i++) { %>
+			<option value="<%= colors[i] %>"><%= colors[i] %></option>
+		<% } %>
+		</select>
+		</script>
+
+		<script id="featureTemplate" type="text/x-ejs-template">
+		<strong>Features</strong><br/>
+		<% for(var i=0;i<features.length;i++) { %>
+			<label><input type="checkbox" class="feature"
+					value="<%= features[i] %>"><%= features[i] %></label><br/>
+		<% } %>
+		</script>
+
+		<!-- for one result -->
+		<script id="resultTemplate" type="text/x-ejs-template">
+		<div class="panel panel-warning">
+
+			<div class="panel-heading">
+			<h3 class="panel-title"><%= car.model %> <%= car.trim %></h3>
+			</div>
+			
+			<div class="panel-body">
+				<p class="pull-right">
+				<img class="img-thumbnail" src="<%= car.imgUrl %>">
+				</p>
+				<p>
+				The <%= car.model %> <%= car.trim %> is  <%= car.color %>. 
+				It has the following features:
+				<ul>
+				<% for(var x=0; x<car.features.length;x++) { %>
+					<li><%= car.features[x] %></li>
+				<% } %>
+				</ul>
+				</p>
+			</div>
+			<div class="panel-footer">List Price: $ <%= car.price %></div>
+		</div>
+		</script>
+
+		<!-- for all results -->
+		<script id="resultsTemplate" type="text/x-ejs-template">
+			<h2>Total Results: <%= totalResults %></h2>
+			
+			<% for(var i=0;i<results.length;i++) { %>
+				<%= results[i] %>
+			<% } %>
+		</script>
+
+	</body>
+</html>

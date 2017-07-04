@@ -1,0 +1,5 @@
+<h2>Total Results: {totalResults}</h2>
+
+{#results}
+	{>result/}
+{/results}

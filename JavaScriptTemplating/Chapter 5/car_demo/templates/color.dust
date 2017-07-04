@@ -1,0 +1,8 @@
+<label for="color">Color</label>
+<select class="form-control" id="color">
+<option></option>
+{#colors}
+	<option value="{.}">{.}</option>
+{/colors}
+</select>
+

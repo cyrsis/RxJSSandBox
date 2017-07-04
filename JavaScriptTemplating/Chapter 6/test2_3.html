@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <script src="nunjucks.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div id="resultDiv"></div>
+
+        <script>
+            $(document).ready(function() {
+              var env = new nunjucks.Environment();
+
+              env.addFilter("raysaid", function(str,quotes) {
+                if(quotes) return "Ray said, \""+str+"\"";
+                return "Ray said "+str;
+              });
+
+              var data = {name:"Ray", age:41};
+      				var templateSource = $("#template").html();
+              var result = env.renderString(templateSource, data);
+    					$("#resultDiv").html(result);
+            });
+        </script>
+
+		<script id="template" type="text/x-nunjucks-template">
+			<h1>Hello {{name|raysaid}}</h1>
+			It is great that you are {{age|raysaid(true)}} years old!
+		</script>
+
+    </body>
+</html>

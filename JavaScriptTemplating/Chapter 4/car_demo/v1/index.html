@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Car Search - EJS</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="handlebars-v3.0.0.js"></script>
+		<script src="carsearch.js"></script>
+		<script src="app.js"></script>
+	</head>
+	<style>
+		body { margin-top:20px; }
+	</style>
+	<body>
+
+		<div class="container">
+		
+			<!-- filters -->
+			<div class="col-md-4">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">Filters</h3>
+					</div>
+					<div class="panel-body">
+						
+						<form role="form" id="searchForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="minprice">Min Price</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">$</div>
+                                            <input type="number" class="form-control" id="minprice">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="maxprice">Max Price</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">$</div>
+                                            <input type="number" class="form-control" id="maxprice">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="modelFilter"></div>
+                            <div class="form-group" id="trimFilter"></div>
+                            <div class="form-group" id="colorFilter"></div>
+                            <div class="checkbox" id="featureFilter"></div>
+
+                            <button class="btn btn-primary btn-block" id="searchButton">Search</button>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+			
+			<!-- Results -->
+			<div class="col-md-8">
+				<h3>Car Inventory Search (Handlebars)</h3>
+				<div id="results"></div>
+			</div>
+
+		</div>
+		
+		<!-- Handlebars Templates -->
+        <script id="modelTemplate" type="text/x-handlebars-template">
+		<label for="model">Model</label>
+		<select class="form-control" id="model">
+		<option></option>
+		{{#each models}}
+			<option value="{{.}}">{{.}}</option>
+		{{/each}}
+		</select>
+		</script>
+
+        <script id="trimTemplate" type="text/x-handlebars-template">
+		<label for="trim">Trim</label>
+		<select class="form-control" id="trim">
+		<option></option>
+		{{#each trims}}
+			<option value="{{.}}">{{.}}</option>
+		{{/each}}
+		</select>
+		</script>
+
+		<script id="colorTemplate" type="text/x-handlebars-template">
+		<label for="color">Color</label>
+		<select class="form-control" id="color">
+		<option></option>
+		{{#each colors}}
+			<option value="{{.}}">{{.}}</option>
+		{{/each}}
+		</select>
+		</script>
+
+		<script id="featureTemplate" type="text/x-handlebars-template">
+		<strong>Features</strong><br/>
+		{{#each features}}
+			<label><input type="checkbox" class="feature"
+					value="{{.}}">{{.}}</label><br/>
+		{{/each}}
+		</script>
+
+		<!-- for one result -->
+		<script id="resultTemplate" type="text/x-handlebars-template">
+		<div class="panel panel-warning">
+
+			<div class="panel-heading">
+			<h3 class="panel-title">{{model}} {{trim}}</h3>
+			</div>
+			
+			<div class="panel-body">
+				<p class="pull-right">
+				<img class="img-thumbnail" src="{{imgUrl}}">
+				</p>
+				<p>
+				The {{ model }} {{ trim }} is {{ color }}. 
+				It has the following features:
+				<ul>
+					{{#each features}}
+					<li>{{.}}</li>
+					{{/each}}
+				</ul>
+				</p>
+			</div>
+			<div class="panel-footer">List Price: $ {{ price }}</div>
+		</div>
+		</script>
+
+		<!-- for all results -->
+		<script id="resultsTemplate" type="text/x-handlebars-template">
+			<h2>Total Results: {{ totalResults }}</h2>
+			
+			{{#each results}}
+				{{> result}}
+			{{/each}}
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <script src="dust-full.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div id="resultDiv"></div>
+        
+        <script>
+		
+			//Credit: Greg Dean at http://stackoverflow.com/a/196991/52160 
+			dust.filters.titleCase = function(str) {
+				return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+			};
+			
+            $(document).ready(function() { 
+                var data = {
+					name:"the name of a book"
+				};
+				var templateSource = $("#template").html();
+				var templateCode = dust.compile(templateSource,'myTemplate');
+				dust.loadSource(templateCode);
+				
+				dust.render('myTemplate', data, function(err, result) {
+					$("#resultDiv").html(result);
+				});
+            });
+        </script>
+        
+		<script id="template" type="text/x-dust-template">
+			<h1>Title: {name|titleCase}</h1>
+		</script>
+		
+    </body>
+</html>

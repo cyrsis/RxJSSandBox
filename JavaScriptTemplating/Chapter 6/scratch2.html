@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <script src="nunjucks.js"></script>
+        <!--
+        <script src="templates/template2.js"></script>
+        <script src="templates/template.js"></script>
+      -->
+        <script src="templates/template_join.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div id="resultDiv"></div>
+
+        <script>
+
+
+
+            $(document).ready(function() {
+
+                var data = {name:"Ray", age:41, old:true,bio:"I liked <strong>pie</strong>",
+      				stats:{
+      				str:12,int:14,dex:9
+      				},
+      				hobbies:["books","movies","video games"]
+      				};
+
+              //nunjucks.configure({autoescape:true});
+              $("#resultDiv").html(nunjucks.render('bio.html',data));
+
+              //var res = nunjucks.render('template.html',data);
+              //console.log(res);
+
+
+
+            });
+        </script>
+
+
+    </body>
+</html>

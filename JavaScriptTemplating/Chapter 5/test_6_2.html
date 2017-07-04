@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <script src="dust-full.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div id="resultDiv"></div>
+        
+        <script>
+            $(document).ready(function() { 
+                var data = {
+					name:"Ray", 
+					age:41,
+					stats: {
+						str:12, 
+						int: 14, 
+						dex: 9
+					}
+				};
+				
+				var templateSourceStats = $("#templateStats").html();
+				var templateCodeStats = dust.compile(templateSourceStats,'stats');
+				dust.loadSource(templateCodeStats);
+
+				var templateSource = $("#template").html();
+				var templateCode = dust.compile(templateSource,'myTemplate');
+				dust.loadSource(templateCode);
+				
+				dust.render('myTemplate', data, function(err, result) {
+					$("#resultDiv").html(result);
+				});
+            });
+        </script>
+
+		<script id="templateStats" type="text/x-dust-template">
+			<h2>Stats</h2>
+			{^noTable}
+				{#stats}
+				<table>
+					<tr>
+						<td>STR</td>
+						<td>{str}</td>
+					</tr>
+					<tr>
+						<td>INT</td>
+						<td>{int}</td>
+					</tr>
+					<tr>
+						<td>DEX</td>
+						<td>{dex}</td>
+					</tr>
+				</table>
+				{/stats}
+			{:else}
+				{#stats}
+				My strenth is {str}, my intelligence is {int}, and my dexterity is {dex}.
+				{/stats}
+			{/noTable}
+		</script>
+		
+		<script id="template" type="text/x-dust-template">
+			<h1>Hello {name}</h1>
+			It is great that you are {age} years old!
+			{>stats noTable="true" /}
+		</script>
+		
+    </body>
+</html>

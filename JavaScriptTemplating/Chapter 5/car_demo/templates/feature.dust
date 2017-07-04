@@ -1,0 +1,5 @@
+<strong>Features</strong><br/>
+{#features}
+	<label><input type="checkbox" class="feature"
+			value="{.}">{.}</label><br/>
+{/features}

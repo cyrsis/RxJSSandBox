@@ -1,0 +1,22 @@
+<div class="panel panel-warning">
+
+	<div class="panel-heading">
+	<h3 class="panel-title">{{result.model}} {{result.trim}}</h3>
+	</div>
+
+	<div class="panel-body">
+		<p class="pull-right">
+		<img class="img-thumbnail" src="{{result.imgUrl}}">
+		</p>
+		<p>
+		The {{result.model}} {{result.trim}} is {{result.color}}. 
+		It has the following features:
+		<ul>
+			{% for feature in result.features %}
+			<li>{{feature}}</li>
+			{% endfor %}
+		</ul>
+		</p>
+	</div>
+	<div class="panel-footer">List Price: ${{result.price}}</div>
+</div>

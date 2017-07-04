@@ -1,0 +1,13 @@
+<script>
+function doParse(parts) {
+	console.dir(arguments);
+	return "foo";
+}
+name = "Ray";
+age = 42;
+str = doParse`My name is ${name}
+and I'm ${age * 2} years old. (Well that's how I feel.)
+`;
+
+console.log(str);
+</script>

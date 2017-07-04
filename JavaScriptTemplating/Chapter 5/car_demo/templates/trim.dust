@@ -1,0 +1,8 @@
+<label for="trim">Trim</label>
+<select class="form-control" id="trim">
+<option></option>
+{#trims}
+	<option value="{.}">{.}</option>
+{/trims}
+</select>
+

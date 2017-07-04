@@ -1,0 +1,7 @@
+My name is {name} and I'm {age} years old.<br/>
+My hobbies are:
+<ul>
+{#hobbies}
+<li>{.}</li>
+{/hobbies}
+</ul>

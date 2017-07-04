@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <script src="nunjucks.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div id="resultDiv"></div>
+
+        <script>
+
+
+
+            $(document).ready(function() {
+              echo = function(str) {
+                return "you siad "+str;
+              }
+
+              var env = new nunjucks.Environment();
+env.addFilter("raysaid", function(str) {
+	return "Ray said "+str;
+});
+
+                var data = {name:"Ray", age:41, old:true,bio:"I liked <strong>pie</strong>",
+      				stats:{
+      				str:12,int:14,dex:9
+      				},
+      				hobbies:["books","movies","video games"],
+              echo:echo
+      				};
+      				var templateSource = $("#template").html();
+              console.dir(data);
+
+              //nunjucks.configure({autoescape:true});
+              $("#resultDiv").html(env.renderString(templateSource,data));
+
+              //var res = nunjucks.render('template.html',data);
+              //console.log(res);
+
+              nunjucks.render('template.html', data, function(err,res) {
+                console.dir(arguments);
+                console.log("async v",res)
+              })
+
+              var parentSource = $("#parent").html();
+              var parent = nunjucks.compile(parentSource);
+              console.dir(parent);
+              var childSource = $("#child").html();
+
+              nunjucks.renderString(childSource, {});
+
+            });
+        </script>
+
+		<script id="template" type="text/x-nunjucks-template">
+			<h1>Hello {{ name|raysaid }}</h1>
+			It is great that you are {{2*age}} years old!<br/>
+      {{bio}}<p>
+      {{echo(name)}}
+		</script>
+
+    <script id="parent" type="text/x-nunjucks-template">
+    im parent
+    </script>
+
+    <script id="child" type="text/x-nunjucks-template">
+    {% extends "parent" %}
+    </script>
+    </body>
+</html>

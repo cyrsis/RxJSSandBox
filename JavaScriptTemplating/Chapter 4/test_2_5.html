@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <script src="handlebars-v3.0.0.js"></script>
+		<script src="md5.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <div id="resultDiv"></div>
+        
+        <script>
+			Handlebars.registerHelper('gravatarurl', function(email) {
+		    	return 'http://www.gravatar.com/avatar/' + md5(email) + '.jpg?s=250';
+			});
+			
+            $(document).ready(function() { 
+                var data = {name:"Ray", 
+							age:41,
+						   email:"raymondcamden@gmail.com"
+						   };
+				var templateSource = $("#template").html();
+				var template = Handlebars.compile(templateSource);
+				var result = template(data);
+				$("#resultDiv").html(result);
+            });
+        </script>
+        
+		<script id="template" type="text/x-handlebars-template">
+			<h1>Hello {{name}}</h1>
+			It is great that you are {{age}} years old!<br/>
+			<img src="{{gravatarurl email}}">
+		</script>
+		
+    </body>
+</html>

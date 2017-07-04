@@ -1,0 +1,22 @@
+<div class="panel panel-warning">
+
+	<div class="panel-heading">
+	<h3 class="panel-title">{model} {trim}</h3>
+	</div>
+
+	<div class="panel-body">
+		<p class="pull-right">
+		<img class="img-thumbnail" src="{imgUrl}">
+		</p>
+		<p>
+		The {model} {trim} is {color}. 
+		It has the following features:
+		<ul>
+			{#features}
+			<li>{.}</li>
+			{/features}
+		</ul>
+		</p>
+	</div>
+	<div class="panel-footer">List Price: ${price}</div>
+</div>
